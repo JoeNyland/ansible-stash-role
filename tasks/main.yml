@@ -1,0 +1,54 @@
+---
+- name: Install Stash
+  tags: stash
+  become: true
+  block:
+    - name: Manage user
+      user:
+        name: stash
+        system: true
+        home: /nonexistent
+        create_home: false
+        shell: /usr/sbin/nologin
+        groups: "{{ stash_user_groups }}"
+      notify: Restart stash service
+    - name: Add users to group
+      user:
+        name: "{{ item }}"
+        groups: stash
+        append: true
+      with_items: "{{ stash_group_users }}"
+      notify: Restart stash service
+    - name: Create install directory
+      file:
+        state: directory
+        path: /usr/share/stash
+        mode: '0755'
+    - name: Create data directory
+      file:
+        state: directory
+        path: /var/lib/stash
+        mode: '0775'
+        owner: stash
+        group: stash
+    - name: Install
+      get_url:
+        url: https://github.com/stashapp/stash/releases/latest/download/stash-linux
+        dest: /usr/local/bin/stash
+        mode: '0755'
+        owner: stash
+        group: stash
+        force: true # Ensures the file is always downloaded
+    - name: Install service file
+      copy:
+        src: stash.service
+        dest: /etc/systemd/system/stash.service
+        mode: '0644'
+      notify:
+        - Reload systemd
+        - Restart stash service
+    - name: Manage service
+      systemd:
+        name: stash
+        enabled: "{{ stash_service_enabled }}"
+        state: "{{ stash_service_state }}"

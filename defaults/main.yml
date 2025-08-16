@@ -1,0 +1,9 @@
+---
+# List of users that should be members of the Servarr group.
+stash_group_users: []
+# List of groups that the Stash user should be a member of.
+stash_user_groups: []
+# Should the Stash service start at boot?
+stash_service_state: started
+# What state should the Stash service be in? e.g. started/stopped
+stash_service_enabled: true

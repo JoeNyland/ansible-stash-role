@@ -1,0 +1,16 @@
+---
+galaxy_info:
+  author: Joe Nyland
+  role_name: stash
+  namespace: joenyland
+  description: Installs Stash
+  license: MIT
+  min_ansible_version: '2.1'
+  platforms:
+  - name: Debian
+    versions:
+      - bookworm
+  galaxy_tags:
+    - stash
+    - stashapp
+dependencies: []

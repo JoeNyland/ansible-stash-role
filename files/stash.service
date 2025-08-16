@@ -1,0 +1,21 @@
+[Unit]
+Description=Stash
+After=syslog.target network.target
+
+[Service]
+User=stash
+Group=stash
+UMask=0002
+Type=simple
+ExecStart=/usr/local/bin/stash
+Environment=STASH_STASH=/var/lib/stash/
+Environment=STASH_CACHE=/var/lib/stash/cache/
+Environment=STASH_CONFIG_FILE=/var/lib/stash/config.yml
+Environment=STASH_GENERATED=/var/lib/stash/generated/
+Environment=STASH_METADATA=/var/lib/stash/metadata/
+TimeoutStopSec=20
+KillMode=process
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

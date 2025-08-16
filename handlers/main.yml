@@ -1,0 +1,9 @@
+---
+- name: Reload systemd
+  systemd:
+    daemon_reload: true
+- name: Restart stash service
+  systemd:
+    name: stash
+    state: restarted
+  when: stash_service_enabled
