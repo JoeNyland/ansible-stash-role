@@ -7,3 +7,5 @@ stash_user_groups: []
 stash_service_state: started
 # What state should the Stash service be in? e.g. started/stopped
 stash_service_enabled: true
+# URL to download the Stash binary from.
+stash_binary_url: https://github.com/stashapp/stash/releases/latest/download/stash-linux
