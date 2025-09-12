@@ -19,11 +19,6 @@
         append: true
       with_items: "{{ stash_group_users }}"
       notify: Restart stash service
-    - name: Create install directory
-      file:
-        state: directory
-        path: /usr/share/stash
-        mode: '0755'
     - name: Create data directory
       file:
         state: directory
