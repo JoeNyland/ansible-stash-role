@@ -7,5 +7,11 @@ stash_user_groups: []
 stash_service_state: started
 # What state should the Stash service be in? e.g. started/stopped
 stash_service_enabled: true
+# Mapping of the different ansible_architectures => binary suffixes
+stash_binary_arch_suffix_map:
+  x86_64: ""
+  aarch64: "-arm64v8"
+  armv7l: "-arm32v7"
+  armv6l: "-arm32v6"
 # URL to download the Stash binary from.
-stash_binary_url: https://github.com/stashapp/stash/releases/latest/download/stash-linux
+stash_binary_url: "https://github.com/stashapp/stash/releases/latest/download/stash-linux{{ stash_binary_arch_suffix_map.get(ansible_architecture, '') }}"
